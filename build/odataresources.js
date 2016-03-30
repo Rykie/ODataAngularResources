@@ -521,8 +521,13 @@ factory('$odataProvider', ['$odataOperators', '$odataBinaryOperation', '$odataPr
             var queryString = this.execute();
             if (queryString.length > 0) {
                 queryString = "?" + queryString;
-            }
-            return this.callback("(" + data + ")" + queryString, success, error, true);
+            } 
+            var pattern = /^[0-9]*$/;
+
+	    if (pattern.test(data)) {
+		    return this.callback("(" + data + ")" + queryString, success, error, true);
+	    }
+            return this.callback("('" + data + "')" + queryString, success, error, true);
         };
 
         ODataProvider.prototype.count = function(success, error) {
