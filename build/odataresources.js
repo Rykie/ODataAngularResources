@@ -522,6 +522,11 @@ factory('$odataProvider', ['$odataOperators', '$odataBinaryOperation', '$odataPr
             if (queryString.length > 0) {
                 queryString = "?" + queryString;
             }
+	    var pattern = /^[0-9]*$/;
+
+	    if (pattern.test(data)) {
+		    return this.callback("(" + data + ")" + queryString, success, error, true);
+	    }
             return this.callback("(" + data + ")" + queryString, success, error, true);
         };
 
